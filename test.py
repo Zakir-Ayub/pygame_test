@@ -1,12 +1,11 @@
 # Simple pygame program
-
-
 # Import and initialize the pygame library
 
 import pygame
+import pygame_menu
+import StartGame
 
 pygame.init()
-
 
 # Set up the drawing window
 
@@ -17,33 +16,30 @@ screen = pygame.display.set_mode([500, 500])
 
 running = True
 
-while running:
 
+def set_difficulty(value, difficulty):
+    # Do the job here !
+    pass
+
+
+
+
+
+while running:
 
     # Did the user click the window close button?
 
-    for event in pygame.event.get():
+    # for event in pygame.event.get():
+    #
+    #     if event.type == pygame.QUIT:
+    #         running = False
 
-        if event.type == pygame.QUIT:
+    menu = pygame_menu.Menu('Welcome', 400, 300,
+                            theme=pygame_menu.themes.THEME_BLUE)
 
-            running = False
-
-
-    # Fill the background with white
-
-    screen.fill((255, 255, 255))
-
-
-    # Draw a solid blue circle in the center
-
-    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
-
-
-    # Flip the display
-
+    menu.add.text_input('Name :', default='John Doe')
+    menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
+    menu.add.button('Play', StartGame.start_the_game())
+    menu.add.button('Quit', pygame_menu.events.EXIT)
+    menu.mainloop(screen)
     pygame.display.flip()
-
-
-# Done! Time to quit.
-
-pygame.quit()
